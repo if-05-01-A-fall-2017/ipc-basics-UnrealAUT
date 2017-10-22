@@ -1,0 +1,20 @@
+1: When more than one process tries to change a shared process
+
+2: I: Because you can only block 1 core with a single thread
+  II: It can cause the entire system to freeze
+
+3: I: by entering the region, it sets the own interest status at true and declares itself as user, then it waits till the other process isn'n interested anymore and beginns to work, if finished it sets own interest to false
+  II: the low priority process can slow down the high priority process
+ III: it means that as lon as there is an other process interested I have to wait(only takes effect if an other process is interested)
+  IV:
+
+int loser				
+Bool interested[3]			
+void enter_region(int process) 
+{ 
+int other = 1 - process;
+int other2 = 2- process;
+interested[process] = True; 
+loser = process; 
+while (loser == process && (interested[other] || interested[other2])) ; 
+}
